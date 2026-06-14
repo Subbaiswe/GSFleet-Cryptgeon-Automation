@@ -29,6 +29,13 @@ test.describe('One Time Share note creation', () => {
     await test.step('Create the note', async () => {
       await expect(createButton).toBeEnabled();
       await createButton.click();
+      //await page.waitForTimeout(10000);
+      const shareLink = page.getByTestId('share-link');
+
+      await expect(shareLink).toBeVisible();
+      console.log('Share link field is visible');
+
+      await page.waitForTimeout(5000);
     });
   });
 });

@@ -1,0 +1,8 @@
+npx playwright test tests/Note_Creation.spec.ts --project=chromium --headed
+
+Get latest code
+git pull
+After making changes
+git add .
+git commit -m "Added share link validation"
+git push
