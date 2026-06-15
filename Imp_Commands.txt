@@ -6,3 +6,5 @@ After making changes
 git add .
 git commit -m "Added share link validation"
 git push
+
+npx playwright test --debug

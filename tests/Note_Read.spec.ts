@@ -3,7 +3,7 @@ import { expect, test } from '@playwright/test';
 const APP_URL = 'https://onetimeshare.gsfleet.io/';
 const NOTE_TEXT = `Test Note ${Date.now()}`;
 
-test.describe('One Time Share note creation', () => {
+test.describe('One Time Share note read', () => {
   test('creates a text note with advanced options enabled', async ({ page }) => {
     await test.step('Open the application', async () => {
       await page.goto(APP_URL);
@@ -13,6 +13,7 @@ test.describe('One Time Share note creation', () => {
     const noteTextField = page.getByTestId('text-field');
     //const advancedOptionsSwitch = page.getByTestId('switch-advanced');
     const createButton = page.getByRole('button', { name: /^create$/i });
+    let generatedUrl = '';
 
     await test.step('Enter note content', async () => {
       await expect(noteTextField).toBeVisible();
@@ -34,10 +35,19 @@ test.describe('One Time Share note creation', () => {
 
       await expect(shareLink).toBeVisible();
       console.log('Share link field is visible');
-      const generatedUrl = await shareLink.inputValue();
+      generatedUrl = await shareLink.inputValue();
       console.log(`Generated URL: ${generatedUrl}`);
       expect(generatedUrl).toContain('/note/');
-      await page.waitForTimeout(5000);
+      //await page.waitForTimeout(5000);
+      await test.step('Open generated note URL', async () => {
+    await page.goto(generatedUrl);
+
+    const viewNoteButton = page.getByTestId('show-note-button');
+
+    await expect(viewNoteButton).toBeVisible();
+
+    await viewNoteButton.click();
+});
     });
   });
 });
