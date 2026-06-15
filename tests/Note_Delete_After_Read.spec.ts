@@ -3,8 +3,8 @@ import { expect, test } from '@playwright/test';
 const APP_URL = 'https://onetimeshare.gsfleet.io/';
 const NOTE_TEXT = `Test Note ${Date.now()}`;
 
-test.describe('One Time Share note read', () => {
-  test('creates and reads a text note', async ({ page }) => {
+test.describe('One Time Share note delete after read', () => {
+  test('creates, reads, and deletes a text note', async ({ page }) => {
     let generatedUrl = '';
 
     await test.step('Open the application', async () => {
@@ -28,7 +28,6 @@ test.describe('One Time Share note read', () => {
       const shareLink = page.getByTestId('share-link');
 
       await expect(shareLink).toBeVisible();
-      console.log('Share link field is visible');
 
       generatedUrl = await shareLink.inputValue();
 
@@ -48,7 +47,16 @@ test.describe('One Time Share note read', () => {
       const noteContent = page.getByText(NOTE_TEXT);
 
       await expect(noteContent).toBeVisible();
-      await page.waitForTimeout(1000);
+    });
+    await test.step('Verify note is deleted after being read', async () => {
+      const newPage = await page.context().newPage();
+      await newPage.goto(generatedUrl);
+      const deletedMessage = newPage.getByText(
+        'note was not found or was already deleted.',
+        { exact: false }
+      );
+
+      await expect(deletedMessage).toBeVisible();
     });
   });
 });

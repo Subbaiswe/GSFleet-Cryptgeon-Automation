@@ -20,12 +20,6 @@ test.describe('One Time Share note creation', () => {
       await expect(noteTextField).toHaveValue(NOTE_TEXT);
     });
 
-    //await test.step('Enable advanced options', async () => {
-      // Click the control by test id so the test is resilient to DOM structure changes.
-      //await expect(advancedOptionsSwitch).toBeVisible();
-     // await advancedOptionsSwitch.click();
-    //});
-
     await test.step('Create the note', async () => {
       await expect(createButton).toBeEnabled();
       await createButton.click();
@@ -37,7 +31,6 @@ test.describe('One Time Share note creation', () => {
       const generatedUrl = await shareLink.inputValue();
       console.log(`Generated URL: ${generatedUrl}`);
       expect(generatedUrl).toContain('/note/');
-      await page.waitForTimeout(5000);
     });
   });
 });
