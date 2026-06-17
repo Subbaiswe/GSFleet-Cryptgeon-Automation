@@ -2,8 +2,7 @@ import { expect, test } from '@playwright/test';
 
 const APP_URL = 'https://onetimeshare.gsfleet.io/';
 const NOTE_TEXT = `Test Note ${Date.now()}`;
-const NOTE_PASSWORD = 'swetha';
-const INVALID_PASSWORD = 'testing';
+const NOTE_PASSWORD = 'HappyTesting';
 
 test.describe('One Time Share password protected note', () => {
   test('creates and reads a password protected note', async ({ page }) => {
@@ -48,7 +47,7 @@ test.describe('One Time Share password protected note', () => {
       await expect(viewNoteButton).toBeVisible();
       const passwordField = newPage.getByTestId('show-note-password');
       await expect(passwordField).toBeVisible();
-      await passwordField.fill(INVALID_PASSWORD);
+      await passwordField.fill(NOTE_PASSWORD);
       await viewNoteButton.click();
       const noteContent = newPage.getByText(NOTE_TEXT);
       await expect(noteContent).toBeVisible();
