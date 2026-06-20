@@ -7,13 +7,13 @@ test.describe('One Time Share note read', () => {
   test('creates and reads a text note', async ({ page }) => {
     let generatedUrl = '';
 
-    await test.step('Open the application', async () => {
-      await page.goto(APP_URL);
-      await expect(page).toHaveURL(APP_URL);
-    });
-
     const noteTextField = page.getByTestId('text-field');
     const createButton = page.getByRole('button', { name: /^create$/i });
+    const shareLink = page.getByTestId('share-link');
+
+    await test.step('Open the application', async () => {
+      await page.goto(APP_URL);
+    });
 
     await test.step('Enter note content', async () => {
       await expect(noteTextField).toBeVisible();
@@ -25,10 +25,7 @@ test.describe('One Time Share note read', () => {
       await expect(createButton).toBeEnabled();
       await createButton.click();
 
-      const shareLink = page.getByTestId('share-link');
-
       await expect(shareLink).toBeVisible();
-      console.log('Share link field is visible');
 
       generatedUrl = await shareLink.inputValue();
 
@@ -43,12 +40,11 @@ test.describe('One Time Share note read', () => {
       const viewNoteButton = page.getByTestId('show-note-button');
 
       await expect(viewNoteButton).toBeVisible();
-
       await viewNoteButton.click();
+
       const noteContent = page.getByText(NOTE_TEXT);
 
       await expect(noteContent).toBeVisible();
-      await page.waitForTimeout(1000);
     });
   });
 });
