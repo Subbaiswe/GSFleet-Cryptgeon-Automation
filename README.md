@@ -112,6 +112,7 @@ test('Create a secure note', async ({ page }) => {
 test('Access a shared note', async ({ page }) => {
   await page.goto('https://onetimeshare.gsfleet.io/note/abc123');
 
+
   await page.getByRole('button', { name: 'Reveal' }).click();
 
   await expect(page.locator('text=Test Note')).toBeVisible();
@@ -126,6 +127,7 @@ test('Access a shared note', async ({ page }) => {
 test('Verify note expires after access', async ({ page }) => {
   const link = 'https://onetimeshare.gsfleet.io/note/abc123';
 
+ 
   await page.goto(link);
   await page.getByRole('button', { name: 'Reveal' }).click();
 

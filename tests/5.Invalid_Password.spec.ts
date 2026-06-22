@@ -56,7 +56,6 @@ test.describe('One Time Share invalid password validation', () => {
       );
 
       await expect(errorMessage).toBeVisible();
-      await newPage.waitForTimeout(1000);
     });
   });
 });

@@ -9,10 +9,11 @@ git push
 
 npx playwright test tests/Note_Creation.spec.ts --project=chromium --debug
 
-for recording scripts:
-npx playwright codegen https://onetimeshare.gsfleet.io
+
 npx playwright test tests/Note_Read.spec.ts --project=chromium --headed
 npx playwright test tests/Note_Delete_After_Read.spec.ts --project=chromium --headed
 npx playwright test tests/Note_Delete_After_Read.spec.ts --project=chromium --debug
+npx playwright test --ui
+npx playwright test --project=chromium --headed --workers=1
 
 

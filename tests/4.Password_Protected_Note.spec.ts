@@ -51,7 +51,6 @@ test.describe('One Time Share password protected note', () => {
       await viewNoteButton.click();
       const noteContent = newPage.getByText(NOTE_TEXT);
       await expect(noteContent).toBeVisible();
-      await newPage.waitForTimeout(1000);
     });
   });
 });
