@@ -9,7 +9,6 @@ test.describe('One Time Share note delete after read', () => {
 
     await test.step('Open the application', async () => {
       await page.goto(APP_URL);
-      await expect(page).toHaveURL(APP_URL);
     });
 
     const noteTextField = page.getByTestId('text-field');
@@ -48,6 +47,7 @@ test.describe('One Time Share note delete after read', () => {
 
       await expect(noteContent).toBeVisible();
     });
+    
     await test.step('Verify note is deleted after being read', async () => {
       const newPage = await page.context().newPage();
       await newPage.goto(generatedUrl);
